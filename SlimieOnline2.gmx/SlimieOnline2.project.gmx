@@ -5,12 +5,23 @@
   </Configs>
   <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
-  <backgrounds name="background"/>
+  <sprites name="sprites">
+    <sprite>sprites\spr_block1x16</sprite>
+    <sprite>sprites\spr_block2x16</sprite>
+    <sprite>sprites\spr_slime</sprite>
+  </sprites>
+  <backgrounds name="background">
+    <background>background\battlefield_tiles</background>
+  </backgrounds>
   <paths name="paths"/>
-  <objects name="objects"/>
-  <timelines name="timelines"/>
-  <rooms name="rooms"/>
+  <objects name="objects">
+    <object>objects\obj_player</object>
+    <object>objects\obj_block</object>
+    <object>objects\obj_jumpthru</object>
+  </objects>
+  <rooms name="rooms">
+    <room>rooms\battlefield</room>
+  </rooms>
   <help>
     <rtf>help.rtf</rtf>
   </help>
