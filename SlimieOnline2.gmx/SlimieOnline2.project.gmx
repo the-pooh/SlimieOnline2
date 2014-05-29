@@ -14,10 +14,18 @@
     <background>background\battlefield_tiles</background>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\key_init.gml</script>
+    <script>scripts\stats_step.gml</script>
+    <script>scripts\player_create.gml</script>
+    <script>scripts\screen_size.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\obj_player</object>
     <object>objects\obj_block</object>
+    <object>objects\obj_ladder</object>
     <object>objects\obj_jumpthru</object>
+    <object>objects\obj_regelaar</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\battlefield</room>

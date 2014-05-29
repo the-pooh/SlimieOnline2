@@ -54,7 +54,7 @@ hspd = 0;
           <argument>
             <kind>1</kind>
             <string>///platform movement
-if !place_meeting(x,y+1,obj_block) &amp;&amp; (!place_meeting(x,y+1,obj_jumpthru) or place_meeting(x,y,obj_jumpthru)) // if we are in the air
+if !place_meeting(x,y+1,obj_block) &amp;&amp; (!place_meeting(x,y+1,obj_jumpthru) or place_meeting(x,y,obj_jumpthru)) &amp;&amp; !place_meeting(x,y,obj_ladder) // if we are in the air
 {
     grav = .5; // set the gravity to .5
     vspd += grav; // add .5 to our vspd once every step
@@ -63,18 +63,19 @@ else // else if we are on the ground
 {
     grav = 0; // set the gravity to 0
     vspd = 0; // set vspd to 0 to stop moving
-    if keyboard_check_pressed(vk_up) // since we are on the ground, we can handle jumping here, so check if we pressed up
+    if keyboard_check_pressed(global.key[5]) &amp;&amp; !keyboard_check(global.key[0]) &amp;&amp; !place_meeting(x,y,obj_ladder)  // since we are on the ground, we can handle jumping here, so check if we pressed up
     {
-        vspd = -8; // set the vspd to -8, which will make us jump
+        vspd = -global.jmp; // set the vspd to -8, which will make us jump
     }
+    
 }
-if keyboard_check_released(vk_up) // if we released the up button while in the in air
+if ((keyboard_check_released(global.key[5])&amp;&amp; vspd &lt; 0) and alarm[0]=-1 )// if we released the up button while in the in air
 {
     vspd *= .5; // divide our vspd by 2, creating a smooth type of variable jumping
 }
 if vspd &gt; 8 // we don't want to fall too fast, so lets limit our vspd
 {
-    vspd = 8; // note that if you want to be able to fall fast, you can remove this without affecting the code (but I wouldn't)
+  //vspd = 8; // note that if you want to be able to fall fast, you can remove this without affecting the code (but I wouldn't)
 }
 repeat(abs(vspd)) // we want to check for a collision every pixel, so we use a repeat() function to check every pixel while falling
 {
@@ -97,7 +98,7 @@ repeat(abs(vspd)) // we want to check for a collision every pixel, so we use a r
         }
     }
 }
-hspd = (keyboard_check(vk_right)-keyboard_check(vk_left))*4; // a nice little trick that will set our hspd to +4 or -4 depending what button we are holding
+hspd = (keyboard_check(global.key[3])-keyboard_check(global.key[2]))*global.mspeed; //&lt;-- speed
 repeat(abs(hspd)) // same as the vspd, we want to check for a collision at every pixel we move
 {
     if !place_meeting(x+sign(hspd),y,obj_block) // if there is no block to our left or right
@@ -106,9 +107,56 @@ repeat(abs(hspd)) // same as the vspd, we want to check for a collision at every
     }
 }
 
-// So I handled the jumpthrough platform problem by seperating the positive and negative vspd values, and
-// then I used the line (!place_meeting(x,y+1,obj_jumpthru) or place_meeting(x,y,obj_jumpthru))
-// This checks if there isn't an obj_jumpthru below us, but makes sure we aren't inside one either
+if keyboard_check(global.key[0]) &amp;&amp; keyboard_check(global.key[5]) &amp;&amp; (place_meeting(x,y+1,obj_jumpthru)) &amp;&amp; vspd=0 &amp;&amp; !place_meeting(x,y,obj_ladder)
+{
+ if !place_meeting(x,y+1,obj_block) {y+=1}
+}
+
+if keyboard_check(global.key[0]) &amp;&amp; (place_meeting(x,y,obj_ladder) or place_meeting(x,y+1,obj_ladder))
+{
+ y+=global.mspeed/1.2
+}
+
+if (keyboard_check(global.key[1]) or keyboard_check(global.key[5])) &amp;&amp; (place_meeting(x,y,obj_ladder) or place_meeting(x,y-17,obj_ladder))
+{
+ y-=global.mspeed/1.2
+}
+
+if keyboard_check(global.key[2]){global.look=-1}
+if keyboard_check(global.key[3]){global.look=1}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///image
+if hspd=0
+{
+ if global.mount=0 {image_speed=0.04} else {image_speed=0}
+}
+else
+{
+ image_speed=global.mspeed/19
+}
+
+if global.look=1 {image_xscale=1}
+if global.look=-1 {image_xscale=-1}
+
 </string>
           </argument>
         </arguments>
@@ -126,5 +174,8 @@ repeat(abs(hspd)) // same as the vspd, we want to check for a collision at every
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints/>
+  <PhysicsShapePoints>
+    <point>16,16</point>
+    <point>16,16</point>
+  </PhysicsShapePoints>
 </object>
