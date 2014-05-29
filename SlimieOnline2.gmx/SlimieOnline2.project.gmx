@@ -4,7 +4,34 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\dash1</sound>
+    <sound>sound\dash2</sound>
+    <sound>sound\dash3</sound>
+    <sound>sound\fx_forest1</sound>
+    <sound>sound\heavyslice1</sound>
+    <sound>sound\hit1</sound>
+    <sound>sound\hit2</sound>
+    <sound>sound\impact</sound>
+    <sound>sound\intro1</sound>
+    <sound>sound\jump1</sound>
+    <sound>sound\klonk1</sound>
+    <sound>sound\leach1</sound>
+    <sound>sound\leach1swing</sound>
+    <sound>sound\levelup1</sound>
+    <sound>sound\moneypickup</sound>
+    <sound>sound\music_forest1</sound>
+    <sound>sound\punch1</sound>
+    <sound>sound\punch2</sound>
+    <sound>sound\slice</sound>
+    <sound>sound\slice1</sound>
+    <sound>sound\swing1</sound>
+    <sound>sound\swing2</sound>
+    <sound>sound\swing3</sound>
+    <sound>sound\swordswing1</sound>
+    <sound>sound\swordswing2</sound>
+    <sound>sound\throw1</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_block1x16</sprite>
     <sprite>sprites\spr_block2x16</sprite>
